@@ -1,0 +1,4 @@
+import { sql } from "drizzle-orm";
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+export const gameSessions=sqliteTable("game_sessions",{id:text("id").primaryKey(),state:text("state").notNull(),updatedAt:text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`)});
+export const leaderboard=sqliteTable("leaderboard",{id:text("id").primaryKey(),sessionId:text("session_id").notNull().unique(),agentName:text("agent_name").notNull(),model:text("model").notNull(),effort:text("effort").notNull().default("unspecified"),durationMs:integer("duration_ms").notNull(),score:integer("score").notNull(),actions:integer("actions").notNull(),toolCalls:integer("tool_calls").notNull(),incorrectAttempts:integer("incorrect_attempts").notNull(),clues:integer("clues").notNull(),completedAt:text("completed_at").notNull().default(sql`CURRENT_TIMESTAMP`)});

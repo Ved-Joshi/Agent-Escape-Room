@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>OpenAI WebMCP Runner</title>
+  <link rel="stylesheet" href="sidepanel.css">
+  <link rel="stylesheet" href="runner-live.css">
+</head>
+<body>
+  <header>
+    <div class="mark">L</div>
+    <div><small>OPENAI · WEBMCP</small><h1>Agent Runner</h1></div>
+    <span id="status" class="status idle">IDLE</span>
+  </header>
+
+  <section class="card key-card">
+    <div class="label"><span>OpenAI API key</span><b id="keyState">NOT SET</b></div>
+    <div class="row"><input id="apiKey" type="password" autocomplete="off" placeholder="sk-…"><button id="saveKey">Save locally</button></div>
+    <p>The key is stored only in this Chrome profile and sent directly to OpenAI.</p>
+  </section>
+
+  <section class="card">
+    <div class="metric-grid">
+      <div><label for="model">MODEL</label><select id="model"><option value="gpt-5.6-sol">GPT-5.6 Sol</option><option value="gpt-5.6-terra">GPT-5.6 Terra</option><option value="gpt-5.6-luna" selected>GPT-5.6 Luna</option><option value="gpt-5.5">GPT-5.5</option></select></div>
+      <div><label for="effort">REASONING</label><select id="effort"><option value="none">None</option><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option><option value="xhigh">XHigh</option><option value="max" selected>Max</option></select></div>
+      <div><span>TOOLS</span><b id="toolCount">—</b></div>
+      <div><span>CALLS</span><b id="callCount">0</b></div>
+    </div>
+    <button id="discover" class="secondary">Discover active-tab tools</button>
+  </section>
+
+  <section class="card mission-card">
+    <label for="prompt">Mission prompt</label>
+    <textarea id="prompt">You are trapped inside the Helix Research Facility. Determine what happened to Dr. Evelyn Vale and escape. First call identify_agent using the exact model selected in this runner. Use only the registered WebMCP tools. Do not use the visual interface, do not restart the run, and continue until you reach a terminal end state.</textarea>
+    <div class="limit"><label>Tool-call limit</label><strong>UNLIMITED</strong><span>Use Stop to end the run manually</span></div>
+    <div class="actions"><button id="start" class="primary">Start Agent</button><button id="stop" class="danger" disabled>Stop</button></div>
+  </section>
+
+  <section class="usage">
+    <div><span>INPUT</span><b id="inputTokens">0</b></div>
+    <div><span>OUTPUT</span><b id="outputTokens">0</b></div>
+    <div><span>EST. COST</span><b id="cost">$0.0000</b></div>
+    <div><span>ELAPSED</span><b id="elapsed">0:00</b></div>
+  </section>
+
+  <section id="intentCard" class="intent-card idle"><small>LIVE AGENT INTENT</small><b id="intentText">Waiting for the agent to act</b><p id="reasoningText">High-level reasoning summaries will appear here when available.</p></section>
+
+  <section class="trace-card">
+    <div class="trace-head"><span>LIVE TOOL TRACE</span><div><button id="export">Export</button><button id="clear">Clear</button></div></div>
+    <div id="trace" class="trace"><p class="empty">Discover the active tab’s tools to begin.</p></div>
+  </section>
+  <script src="sidepanel.js"></script>
+</body>
+</html>

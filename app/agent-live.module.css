@@ -1,0 +1,6 @@
+.agentIntent{position:absolute;z-index:12;top:92px;left:50%;transform:translateX(-50%);min-width:280px;display:flex;align-items:center;gap:12px;padding:10px 16px;border:1px solid #64f5dc88;background:#061416ed;box-shadow:0 12px 36px #000,0 0 24px #64f5dc20;pointer-events:none}
+.agentIntent>svg{width:20px;color:var(--cyan)}
+.agentIntent span{display:flex;flex-direction:column;gap:3px;flex:1}
+.agentIntent small{font:7px ui-monospace;letter-spacing:.18em;color:var(--cyan)}
+.agentIntent b{font:11px ui-monospace;text-transform:uppercase}
+.agentIntent>i{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 1s infinite}

@@ -1,0 +1,5 @@
+import { env } from "cloudflare:workers";
+import { executeGame, loadSession, validSession } from "@/lib/server-game";
+import type { GameAction } from "@/lib/game";
+export async function POST(request:Request){const{sessionId,action,toolCall=false}=await request.json() as{sessionId:string;action?:GameAction;toolCall?:boolean};if(!sessionId||!validSession(sessionId))return Response.json({error:"Invalid session"},{status:400});const{view,result}=await executeGame(sessionId,action,toolCall);return Response.json({state:view,result})}
+export async function DELETE(request:Request){const id=new URL(request.url).searchParams.get("sessionId")??"";if(!validSession(id))return Response.json({error:"Invalid session"},{status:400});const state=await loadSession(id);if(state&&(state.toolCalls>0||state.agentName))return Response.json({error:"Agent runs cannot be restarted after identification or tool activity."},{status:409});try{await env.DB.prepare("DELETE FROM game_sessions WHERE id = ?").bind(id).run()}catch{/* No durable database in agent preview. */}return Response.json({ok:true})}

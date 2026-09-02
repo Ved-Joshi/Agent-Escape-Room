@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "OpenAI WebMCP Agent Runner",
+  "version": "1.4.2",
+  "description": "Runs a selectable OpenAI reasoning model against WebMCP tools registered by the active page.",
+  "minimum_chrome_version": "149",
+  "permissions": ["activeTab", "scripting", "sidePanel", "storage"],
+  "host_permissions": [
+    "https://api.openai.com/*",
+    "https://agent-escape-room.behumble1907.chatgpt.site/*"
+  ],
+  "content_scripts": [{
+    "matches": ["https://agent-escape-room.behumble1907.chatgpt.site/*"],
+    "js": ["webmcp-bridge.js"],
+    "run_at": "document_start",
+    "world": "MAIN"
+  }],
+  "background": { "service_worker": "service-worker.js", "type": "module" },
+  "action": { "default_title": "Open WebMCP Agent Runner" },
+  "side_panel": { "default_path": "sidepanel.html" }
+}
